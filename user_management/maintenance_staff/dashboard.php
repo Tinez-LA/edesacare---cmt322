@@ -1,7 +1,5 @@
 <?php
 $page_title = "Maintenance Staff Dashboard";
-
-session_start();
 include_once('../../inc/auth_check.php');
 require_role('maintenance_staff');
 include_once('../../inc/firebase.php');
@@ -148,3 +146,4 @@ $hostelDisplay = empty($assignedHostels)
 </div>
 
 <?php include('../../inc/footer_private.php'); ?>
+
