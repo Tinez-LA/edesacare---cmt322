@@ -1,0 +1,77 @@
+
+/* 🟣 Popup Styles (same as add form theme) */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-box {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.popup-box h3 {
+    color: var(--deep-purple);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.popup-box p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+.popup-box .form-group {
+    text-align: left;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 10px; /* Use gap for spacing */
+    margin-top: 1.5rem;
+}
+
+/* Generic styles for all buttons in the popup */
+.popup-buttons button {
+    flex: 1; /* Make buttons share space equally */
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.btn-confirm {
+    background: var(--orange);
+    color: white;
+}
+
+.btn-confirm:hover {
+    background: var(--light-orange);
+    color: var(--text-color);
+}
+
+.popup-buttons .btn-cancel {
+    background-color: #6c757d; /* Neutral gray */
+    color: #fff;
+}
+
+.popup-buttons .btn-cancel:hover { background-color: #5a6268; }
+
+@keyframes fadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

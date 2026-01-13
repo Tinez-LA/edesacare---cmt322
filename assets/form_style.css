@@ -1,0 +1,271 @@
+/*
+/* Form wrapper inside main-content */
+/* Form Container */
+.form-wrapper {
+    position: relative; /* Needed for absolute positioning of the back icon */
+    background: #fff;
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+/* New Title Header with Flexbox */
+.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the title */
+    position: relative; /* For the back icon's position */
+    margin-bottom: 25px;
+}
+
+.form-header .back-icon-link {
+    position: absolute; /* Position relative to the header */
+    left: 0; /* Align to the far left of the header */
+    color: var(--purple);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.form-header .back-icon-link:hover {
+    color: var(--orange);
+    transform: scale(1.1);
+}
+
+.form-wrapper h2 {
+    color: var(--purple);
+    margin: 0; /* Remove default margin */
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* Labels */
+.form-wrapper label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+/* Inputs and Selects */
+.form-wrapper input[type="text"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="password"],
+.form-wrapper input[type="number"],
+.form-wrapper input[type="date"],
+.form-wrapper select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    box-sizing: border-box;
+}
+
+.form-wrapper input:focus,
+.form-wrapper select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 4px rgba(66, 39, 106, 0.3);
+    outline: none;
+}
+
+/* Textarea */
+.form-wrapper textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.form-wrapper textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 4px rgba(66, 39, 106, 0.3);
+    outline: none;
+}
+
+/* File Input */
+.form-wrapper input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    box-sizing: border-box;
+}
+
+.form-wrapper input[type="file"]:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 4px rgba(66, 39, 106, 0.3);
+    outline: none;
+}
+
+
+
+
+
+
+
+/* Password Wrapper (Eye Icon) */
+.password-wrapper {
+    position: relative;
+    /* display: flex; is not needed when child is absolutely positioned */
+}
+
+.password-wrapper input {
+    padding-right: 42px; /* extra space for icon */
+}
+
+.password-wrapper .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 35%;
+    transform: translateY(-50%);
+    background-color: transparent !important; /* Override general button style */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: auto; /* Override width: 100% */
+}
+
+.password-wrapper .toggle-password i {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    color: var(--text-color);
+}
+
+.password-wrapper .toggle-password:hover i {
+    color: var(--text-color);
+    opacity: 1;
+}
+
+/* Submit Button */
+.form-wrapper .btn-submit {
+    display: block; /* To allow margin auto to work */
+    width: 50%; /* Or any width you prefer */
+    margin: 1.5rem auto 0; /* Center the button */
+    background-color: var(--orange); /* Changed color */
+    color: var(--text-light);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.2s, box-shadow 0.2s;
+}
+
+.form-wrapper .btn-submit:hover {
+    background-color: var(--light-orange); /* Lighter orange on hover */
+    color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Success / Error Messages */
+.form-wrapper .message {
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.form-wrapper .message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-wrapper .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-wrapper {
+        width: 90%;
+        padding: 25px 20px;
+        margin: 30px auto;
+    }
+
+    .form-wrapper h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/*  NEW — Popup box style */
+.success-popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.success-popup .popup-content {
+    background: #fff;
+    color: #333;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 80%;
+}
+.success-popup button {
+    background: #4B0082;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.success-popup button:hover {
+    background: #5c1aa5;
+}
+
+/* Footer Styles */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--purple);
+    color: var(--text-light);
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Adjust main-content to prevent overlap with fixed footer */
+.main-content {
+    padding-bottom: 60px; /* Adjust based on footer height */
+}
+
+/* End of form_style.css */

@@ -1,0 +1,81 @@
+.top-card {
+    margin-bottom: 2.5rem !important;
+    border-left: 5px solid var(--purple);
+}
+
+.top-card .main-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--deep-purple);
+}
+
+.floor-section {
+    margin-bottom: 2rem;
+}
+
+.floor-title {
+    font-size: 1.4rem;
+    color: var(--deep-purple);
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 1.5rem;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.room-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 4px solid;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}
+
+.room-card .room-number {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--deep-purple);
+    margin-bottom: 10px;
+}
+
+.room-card .room-number i {
+    margin-right: 8px;
+    color: var(--purple);
+}
+
+.room-card .room-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+/* Status Colors */
+.room-card.status-available { border-color: #28a745; }
+.room-card.status-available .room-status { background-color: #eaf6ec; color: #28a745; }
+.room-card.status-occupied { border-color: #ffc107; }
+.room-card.status-occupied .room-status { background-color: #fff8e6; color: #b98b00; }
+.room-card.status-under-maintenance { border-color: #dc3545; }
+.room-card.status-under-maintenance .room-status { background-color: #f8d7da; color: #721c24; }
+
+/* Section title for occupants */
+.section-title {
+    font-size: 1.4rem;
+    color: var(--deep-purple);
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}

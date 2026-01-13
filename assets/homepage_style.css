@@ -1,0 +1,81 @@
+:root {
+  --purple: #42276a;
+  --deep-purple: #351d59;
+  --orange: #ef7828;
+  --light-orange: #ffb67d;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('https://www.usm.my/images/stories/galerifoto/campus_aerial.jpg') no-repeat center center/cover;
+  backdrop-filter: blur(10px);
+  color: #333;
+}
+
+.overlay {
+  background-color: rgba(255, 255, 255, 0.75);
+  min-height: 100vh;
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--deep-purple), var(--purple));
+}
+
+.hero {
+  padding: 120px 20px 80px;
+  color: var(--deep-purple);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, var(--purple), var(--orange));
+  border: none;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.section-title {
+  font-weight: 700;
+  color: var(--deep-purple);
+  margin-bottom: 30px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.card .btn {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 0;
+  color: var(--deep-purple);
+  background: #f3f3f3;
+  font-size: 0.9rem;
+}

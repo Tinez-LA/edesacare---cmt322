@@ -1,0 +1,5 @@
+1. add created date
+2. user id pls check
+3. pk and fk
+4. add gender and user image/icon
+5. int cannot start with 0 - fix it (ic num, hp num)

@@ -1,0 +1,120 @@
+/* Main container for the view page, styled like form-wrapper */
+.view-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff; /* Use white background for consistency */
+    color: var(--text-color); /* Use standard text color */
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Consistent shadow */
+    position: relative;
+}
+
+/* New Flexbox Header */
+.view-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* Back Button */
+.view-header .back-btn {
+    position: absolute; /* Position relative to the header */
+    left: 0; /* Align to the far left */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--purple); /* Use theme purple */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.view-header .back-btn:hover {
+    color: var(--orange); /* Use theme orange for hover */
+}
+
+/* Page Title */
+.view-header h2 {
+    color: var(--purple); /* Use theme purple */
+    font-size: 1.6rem;
+    margin: 0; /* Remove default margins */
+}
+
+.back-btn:hover {
+    color: var(--orange); /* Use theme orange for hover */
+}
+
+/* New Profile Header Card */
+.profile-header-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--light-purple);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid white;
+}
+
+.profile-header-card .profile-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.profile-header-card .profile-info h3 {
+    margin: 0 0 4px 0;
+    color: var(--deep-purple);
+    font-size: 1.5rem;
+}
+
+.profile-header-card .profile-info span {
+    color: var(--purple);
+    font-weight: 500;
+}
+
+/* Main details card */
+.details-card {
+    background: var(--light-gray); /* Use light gray for a subtle contrast */
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.detail-row {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd; /* Softer border color */
+    display: grid;
+    grid-template-columns: 180px 1fr; /* Aligns labels and values */
+    gap: 15px;
+}
+
+/* New styles for name and icon alignment */
+.name-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Space between icon and name */
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+strong {
+    color: var(--deep-purple); /* Use deep purple for labels */
+    font-weight: 600;
+}
+
+.error-box {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+}

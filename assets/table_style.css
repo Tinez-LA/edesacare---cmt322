@@ -1,0 +1,213 @@
+
+.table-container {
+    background: #fff; /* Changed to white for a cleaner look */
+    color: var(--text-color); /* Ensures text is readable on a white background */
+    padding: 1.8rem;
+    border-radius: 14px;
+    margin-top: 25px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    overflow-x: auto;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* 🟣 New wrapper for search and filter */
+.filters-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+/* New styles for the search wrapper */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper .fa-search {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    font-size: 0.9rem;
+    top: 50%; /* Correctly centers the icon vertically */
+    transform: translateY(-50%); /* Paired with top: 50% for perfect alignment */
+}
+
+.table-actions input[type="text"] {
+    padding: 10px 12px 10px 35px; /* Add left padding for icon */
+    border-radius: 8px;
+    border: 1px solid var(--purple);
+    background: var(--light-gray);
+    width: 260px;
+    outline: none;
+    font-size: 0.9rem; /* Slightly smaller font for better fit */
+    color: var(--text-color);
+    transition: border-color var(--transition-speed);
+}
+
+/* 🟣 New styles for the filter dropdown */
+.filter-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.filter-select-wrapper .fa-filter {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.filter-select-wrapper select {
+    padding: 10px 12px 10px 35px;
+    border-radius: 8px;
+    border: 1px solid var(--purple);
+    background: var(--light-gray);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.table-actions input:focus {
+    border-color: var(--orange);
+}
+
+.table-actions a {
+    background: var(--orange);
+    color: var(--text-light); /* Use variable for consistency */
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background var(--transition-speed);
+}
+
+.table-actions a:hover {
+    background: var(--light-orange);
+    color: var(--text-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.85rem;
+    text-align: left; /* Keeps text aligned to the left */
+    border-bottom: 1px solid #eee; /* Light gray border for rows */
+}
+
+th {
+    color: var(--purple); /* Changed to purple for better contrast */
+    font-weight: 600; /* Makes headers bolder */
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+th::after {
+    content: "⇅";
+    font-size: 0.75rem;
+    color: #bbb; /* Slightly lighter sort icon */
+    margin-left: 6px;
+    opacity: 0.6;
+}
+
+/* Row hover effect */
+tbody tr:hover {
+    background-color: var(--light-purple); /* Use light purple for hover */
+}
+
+.action-icons i {
+    margin: 0 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+/* Remove default hyperlink styling from action icons */
+.action-icons a {
+    text-decoration: none;
+    color: inherit; /* The icon inside will provide the color */
+}
+
+.action-icons .view { color: var(--orange); } /* View icon color */
+.action-icons .edit { color: #34d399; } /* Edit icon color (brighter green) */
+.action-icons .delete { color: #ef4444; } /* Delete icon color (brighter red) */
+
+@media (max-width: 768px) {
+    .table-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .table-actions input {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .table-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Subtle icon animation */
+.action-icons i {
+    margin: 0 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.action-icons i:hover {
+    transform: scale(1.25);
+}
+
+/* Specific color hover feedback */
+.action-icons a:hover .view {
+    color: var(--light-orange); /* Lighter orange on hover */
+}
+.action-icons a:hover .edit {
+    color: #6ee7b7; /* Lighter green on hover */
+}
+.action-icons a:hover .delete {
+    color: #f87171; /* Lighter red on hover */
+}
+
+/* Action button styles */
+.action-button {
+    background: var(--orange);
+    color: var(--text-light);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+}
+
+.action-button:hover {
+    background: var(--light-orange);
+    color: var(--text-color);
+}
+
+/* Status select dropdown styles */
+.status-select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--purple);
+    background: var(--light-gray);
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color var(--transition-speed);
+}
+
+.status-select:focus {
+    border-color: var(--orange);
+}

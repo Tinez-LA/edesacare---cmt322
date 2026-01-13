@@ -1,0 +1,157 @@
+:root {
+    --purple: #42276a;
+    --deep-purple: #351d59;
+    --light-purple: #f9f6ff;
+    --orange: #ef7828;
+    --light-orange: #ffb67d;
+    --green: #28a745;
+    --blue: #007bff;
+    --yellow: #ffc107;
+    --red: #dc3545;
+    --teal: #20c997; /* New color for hostels */
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+    color: var(--deep-purple);
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    color: #6c757d;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-left: 5px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.dashboard-card .card-icon {
+    font-size: 2rem;
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.dashboard-card .card-content .card-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--deep-purple);
+    margin: 0;
+}
+
+.dashboard-card .card-content .card-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Card Specific Colors */
+.card-students { border-left-color: var(--blue); }
+.card-students .card-icon { background-color: var(--blue); }
+
+.card-wardens { border-left-color: var(--purple); }
+.card-wardens .card-icon { background-color: var(--purple); }
+
+.card-staff { border-left-color: var(--orange); }
+.card-staff .card-icon { background-color: var(--orange); }
+
+.card-complaints { border-left-color: var(--red); }
+.card-complaints .card-icon { background-color: var(--red); }
+
+.card-resolved { border-left-color: var(--green); }
+.card-resolved .card-icon { background-color: var(--green); }
+
+.card-progress { border-left-color: var(--yellow); }
+.card-progress .card-icon { background-color: var(--yellow); }
+
+.card-hostels { border-left-color: var(--teal); }
+.card-hostels .card-icon { background-color: var(--teal); }
+
+.dashboard-section-title {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--deep-purple);
+    border-bottom: 2px solid var(--light-purple);
+    padding-bottom: 10px;
+}
+
+.dashboard-chart-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.dashboard-chart-card h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--deep-purple);
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Quick Actions Section */
+.quick-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    background-color: #fff;
+    color: var(--purple);
+    padding: 12px 20px;
+    border-radius: 25px; /* Cute rounded pill shape */
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--light-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,133 @@
+:root {
+  --purple: #42276a;
+  --deep-purple: #351d59;
+  --orange: #ef7828;
+  --light-orange: #ffb67d;
+  --light-gray: #f4f7f6;
+  --text-color: #333;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle, #ffffff, var(--purple));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  display: flex;
+  width: 900px;
+  height: 600px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.login-image-panel {
+  flex: 1;
+  background: url('https://som.usm.my/images/Accommodation_1.jpg') no-repeat center center/cover;
+}
+
+.login-form-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+}
+
+.login-form-panel h2 {
+  color: var(--deep-purple);
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.login-form-panel p {
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple), var(--orange));
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn-login:hover {
+  opacity: 0.9;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.links a {
+  color: var(--purple);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #d9534f;
+  background: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 920px) {
+  .login-container {
+    flex-direction: column;
+    width: 90%;
+    max-width: 450px;
+    height: auto;
+  }
+
+  .login-image-panel {
+    display: none; /* Hide image on smaller screens to save space */
+  }
+
+  .login-form-panel {
+    padding: 40px;
+  }
+}
