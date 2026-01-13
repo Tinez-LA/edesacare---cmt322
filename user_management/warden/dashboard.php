@@ -5,6 +5,21 @@ require_role('warden');
 include_once('../../inc/firebase.php');
 include('../../inc/header_private.php');
 
+/* ===============================
+   SESSION TIMEOUT
+   =============================== */
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    session_unset();
+    session_destroy();
+    header("Location: /auth/login.php?timeout=1");
+    exit;
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+
+/* ===============================
+   INIT
+   =============================== */
+
 $warden = $_SESSION['user'];
 $wardenUserID = $warden['userID'];
 $idToken = $_SESSION['idToken'];
@@ -176,3 +191,4 @@ try {
 </div>
 
 <?php include('../../inc/footer_private.php'); ?>
+
