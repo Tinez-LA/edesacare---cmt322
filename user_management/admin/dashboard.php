@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once('../../inc/auth_check.php');
 require_role('admin');
 include_once('../../inc/firebase.php');
@@ -187,3 +186,4 @@ new Chart(document.getElementById('complaintStatusChart'), {
 </script>
 
 <?php include('../../inc/footer_private.php'); ?>
+
