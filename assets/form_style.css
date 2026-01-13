@@ -268,4 +268,8 @@ footer p {
     padding-bottom: 60px; /* Adjust based on footer height */
 }
 
+.page-title {
+    text-align: center;
+    margin-top: 20px;
+}
 /* End of form_style.css */
