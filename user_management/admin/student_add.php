@@ -8,25 +8,27 @@ include('../../inc/header_private.php');
 $message = '';
 $error = '';
 
-// Ensure admin is logged in
+// 🔒 Ensure admin authenticated
 if (empty($_SESSION['idToken'])) {
     die('<p style="color:red">Admin not authenticated. Please login again.</p>');
 }
 
+/* =========================
+   FETCH HOSTELS
+   ========================= */
 $hostels = [];
-// 🟣 Fetch all hostels to populate the dropdown
 try {
     $hostels_collection = firestore_get_collection('Hostels', $_SESSION['idToken']);
     if (!isset($hostels_collection['error'])) {
         $hostels = $hostels_collection;
-    } else {
-        $error = "Warning: Could not load hostels list.";
     }
 } catch (Exception $e) {
     $error = "Error loading hostels: " . $e->getMessage();
 }
 
-// Initialize form fields
+/* =========================
+   FORM VALUES
+   ========================= */
 $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $icNum = $_POST['icNum'] ?? '';
@@ -36,8 +38,11 @@ $studentID = $_POST['studentID'] ?? '';
 $hostelID = $_POST['hostelID'] ?? '';
 $tempPassword = $_POST['tempPassword'] ?? '';
 
+/* =========================
+   FORM SUBMIT
+   ========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Trim all input values
+
     $name = trim($name);
     $email = trim($email);
     $icNum = trim($icNum);
@@ -47,60 +52,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hostelID = trim($hostelID);
     $tempPassword = trim($tempPassword);
 
-    // Basic validation
-    if (empty($name) || empty($email) || empty($icNum) || empty($tempPassword) || empty($gender) || empty($studentID)) {
-        $error = "Please fill in all required fields including Student ID, gender, IC Number, and temporary password.";
-    } else {
-        // 🔹 Create user in Firebase Authentication
-        $signupRes = firebase_signup($email, $tempPassword);
+    // Validation
+    if (
+        empty($name) ||
+        empty($email) ||
+        empty($icNum) ||
+        empty($gender) ||
+        empty($studentID) ||
+        empty($tempPassword)
+    ) {
+        $error = "Please fill in all required fields.";
+    }
+    else {
+
+        /* =========================
+           🔒 FORCE IC- / TEL-
+           ========================= */
+
+        if (!str_starts_with($icNum, 'IC-')) {
+            $icNum = 'IC-' . $icNum;
+        }
+
+        if (!empty($contactNo) && !str_starts_with($contactNo, 'TEL-')) {
+            $contactNo = 'TEL-' . $contactNo;
+        }
+
+        /* =========================
+           FIREBASE AUTH
+           ========================= */
+        $signup = firebase_signup($email, $tempPassword);
         $userID = '';
         $idToken = '';
 
-        if (isset($signupRes['error'])) {
-            if ($signupRes['error']['message'] === 'EMAIL_EXISTS') {
-                // If user already exists, attempt to sign in
-                $signinRes = firebase_signin($email, $tempPassword);
-                if (isset($signinRes['error'])) {
-                    $error = "A user with this email already exists and automatic sign-in failed. Please check the password or use a different email.";
+        if (isset($signup['error'])) {
+            if ($signup['error']['message'] === 'EMAIL_EXISTS') {
+                $signin = firebase_signin($email, $tempPassword);
+                if (isset($signin['error'])) {
+                    $error = "User already exists but sign-in failed.";
                 } else {
-                    $userID = $signinRes['localId'];
-                    $idToken = $signinRes['idToken'];
+                    $userID = $signin['localId'];
+                    $idToken = $signin['idToken'];
                 }
             } else {
-                $error = "Failed to create user in Firebase Auth: " . $signupRes['error']['message'];
+                $error = "Firebase error: " . $signup['error']['message'];
             }
         } else {
-            // Successfully created user
-            $userID = $signupRes['localId'];
-            $idToken = $signupRes['idToken'];
+            $userID = $signup['localId'];
+            $idToken = $signup['idToken'];
         }
 
-        // 🔹 Save data to Firestore
+        /* =========================
+           FIRESTORE SAVE
+           ========================= */
         if (!empty($idToken)) {
+
             $studentData = [
-                'userID' => $userID,
-                'studentID' => $studentID,
-                'name' => $name,
-                'email' => $email,
-                'icNum' => $icNum,
-                'gender' => $gender,
-                'role' => 'student',
-                'contactNo' => $contactNo,
+                'userID'   => $userID,
+                'studentID'=> $studentID,
+                'name'     => $name,
+                'email'    => $email,
+
+                // 🔒 ALWAYS STRING
+                'icNum'     => $icNum,
+                'contactNo'=> $contactNo,
+
+                'gender'   => $gender,
+                'role'     => 'student',
                 'hostelID' => $hostelID,
-                'roomID' => '', // Initially empty
+                'roomID'   => '',
                 'changepasswordcount' => 0
             ];
 
-            // Use the student's unique userID as the document ID in Firestore
-            $res = firestore_set('Users', $userID, $studentData, $idToken);
+            $save = firestore_set('Users', $userID, $studentData, $idToken);
 
-            if (isset($res['error'])) {
-                $error = "Failed to save student in Firestore: " . ($res['error']['message'] ?? 'Unknown error');
+            if (isset($save['error'])) {
+                $error = "Failed to save student.";
             } else {
-                $message = "Student created successfully! They can login with the temporary password.";
                 echo "<script>window.successMessage = true;</script>";
-
-                // Clear form after success
                 $name = $email = $icNum = $contactNo = $studentID = $hostelID = $tempPassword = $gender = '';
             }
         }
@@ -108,14 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-<link rel="stylesheet" href="../../assets/header_style.css"> 
-<link rel="stylesheet" href="../../assets/form_style.css"> 
-<link rel="stylesheet" href="../../assets/pop_style.css"> 
+<link rel="stylesheet" href="../../assets/header_style.css">
+<link rel="stylesheet" href="../../assets/form_style.css">
+<link rel="stylesheet" href="../../assets/pop_style.css">
 
 <div class="form-wrapper">
     <div class="form-header">
-        <a href="student_main.php" class="back-icon-link" title="Back to Student List"><i class="fa-solid fa-arrow-left"></i></a>
+        <a href="student_main.php"><i class="fa-solid fa-arrow-left"></i></a>
         <h2>Add New Student</h2>
     </div>
 
@@ -124,80 +151,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST">
-        <label for="studentID">Student ID <span style="color:red">*</span>:</label>
-        <input id="studentID" name="studentID" type="text" required value="<?= htmlspecialchars($studentID) ?>">
+        <label>Student ID *</label>
+        <input type="text" name="studentID" required value="<?= htmlspecialchars($studentID) ?>">
 
-        <label for="name">Name <span style="color:red">*</span>:</label>
-        <input id="name" name="name" type="text" required value="<?= htmlspecialchars($name) ?>">
+        <label>Name *</label>
+        <input type="text" name="name" required value="<?= htmlspecialchars($name) ?>">
 
-        <label for="email">Email <span style="color:red">*</span>:</label>
-        <input id="email" name="email" type="email" required value="<?= htmlspecialchars($email) ?>">
+        <label>Email *</label>
+        <input type="email" name="email" required value="<?= htmlspecialchars($email) ?>">
 
-        <label for="icNum">IC Number <span style="color:red">*</span>:</label>
-        <input id="icNum" name="icNum" type="text" required value="<?= htmlspecialchars($icNum) ?>">
+        <label>IC Number *</label>
+        <input type="text" name="icNum" required value="<?= htmlspecialchars($icNum) ?>">
 
-        <label for="gender">Gender <span style="color:red">*</span>:</label>
-        <select id="gender" name="gender" required>
-            <option value="">-- Select Gender --</option>
+        <label>Gender *</label>
+        <select name="gender" required>
+            <option value="">-- Select --</option>
             <option value="Male" <?= $gender === 'Male' ? 'selected' : '' ?>>Male</option>
             <option value="Female" <?= $gender === 'Female' ? 'selected' : '' ?>>Female</option>
         </select>
 
-        <label for="contactNo">Contact No:</label>
-        <input id="contactNo" name="contactNo" type="text" value="<?= htmlspecialchars($contactNo) ?>">
+        <label>Contact Number</label>
+        <input type="text" name="contactNo" value="<?= htmlspecialchars($contactNo) ?>">
 
-        <label for="tempPassword">Temporary Password <span style="color:red">*</span>:</label>
+        <label>Temporary Password *</label>
         <div class="password-wrapper">
-            <input id="tempPassword" name="tempPassword" type="password" required value="<?= htmlspecialchars($tempPassword) ?>">
+            <input type="password" name="tempPassword" required value="<?= htmlspecialchars($tempPassword) ?>">
             <button type="button" class="toggle-password"><i class="fa-solid fa-eye"></i></button>
         </div>
-        <small style="color: #555; font-size: 0.85rem;">Temporary password for first login only. Student must change it afterwards.</small>
 
-        <label for="hostelID">Hostel (optional):</label>
-        <select id="hostelID" name="hostelID">
+        <label>Hostel</label>
+        <select name="hostelID">
             <option value="">-- Select Hostel --</option>
             <?php foreach ($hostels as $hostel): ?>
-                <option value="<?= htmlspecialchars($hostel['hostelID']) ?>" <?= ($hostelID === $hostel['hostelID']) ? 'selected' : '' ?>>
+                <option value="<?= $hostel['hostelID'] ?>" <?= $hostelID === $hostel['hostelID'] ? 'selected' : '' ?>>
                     <?= htmlspecialchars($hostel['name']) ?>
                 </option>
             <?php endforeach; ?>
-        </select><br><br>
+        </select>
 
         <button type="submit" class="btn-submit">Add Student</button>
     </form>
 </div>
 
-<!-- ⭐ NEW — Popup HTML -->
 <div class="success-popup" id="successPopup">
     <div class="popup-content">
         <h3>✅ Student Created Successfully</h3>
-        <p>They can now login using the temporary password.</p>
-        <button id="okBtn">Okay</button>
+        <button id="okBtn">OK</button>
     </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Toggle password visibility
-    const toggleBtn = document.querySelector(".toggle-password");
-    const passwordInput = document.getElementById("tempPassword");
-    const icon = toggleBtn.querySelector("i");
+document.addEventListener("DOMContentLoaded", function () {
 
-    toggleBtn.addEventListener("click", function() {
-        const type = passwordInput.type === "password" ? "text" : "password";
-        passwordInput.type = type;
+    const toggle = document.querySelector(".toggle-password");
+    const input = document.querySelector("input[name='tempPassword']");
+    const icon = toggle.querySelector("i");
+
+    toggle.onclick = () => {
+        input.type = input.type === "password" ? "text" : "password";
         icon.classList.toggle("fa-eye");
         icon.classList.toggle("fa-eye-slash");
-    });
+    };
 
-    // ⭐ NEW — Show popup if success
     if (window.successMessage) {
-        const popup = document.getElementById("successPopup");
-        popup.style.display = "flex";
-        document.getElementById("okBtn").addEventListener("click", function() {
-            popup.style.display = "none";
+        document.getElementById("successPopup").style.display = "flex";
+        document.getElementById("okBtn").onclick = () => {
             window.location.href = "student_main.php";
-        });
+        };
     }
 });
 </script>
